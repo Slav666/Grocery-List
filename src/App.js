@@ -84,7 +84,18 @@ function App() {
   };
 
   const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!newItem) return;
+    addItem(newItem);
+    setNewItem("");
     console.log(e);
+  };
+
+  const addItem = (item) => {
+    const id = item.length ? items[items.length - 1].id + 1 : 1;
+    const myNewItem = { id, checked: false, item };
+    const listItems = [...items, myNewItem];
+    setItems(listItems);
   };
 
   return (
