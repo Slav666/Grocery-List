@@ -3,6 +3,7 @@ import Header from "./Header";
 import AddItem from "./AddItem";
 import Content from "./Content";
 import Footer from "./Footer";
+import SearchItem from "./SearchItem";
 import { useState } from "react";
 
 function App() {
@@ -70,6 +71,7 @@ function App() {
   ]);
 
   const [newItem, setNewItem] = useState("");
+  const [search, setSearch] = useState("");
 
   const handleChecked = (id) => {
     const listItems = items.map((item) =>
@@ -101,13 +103,16 @@ function App() {
   return (
     <div className="App">
       <Header />
+      <SearchItem search={search} setSearch={setSearch} />
       <AddItem
         newItem={newItem}
         setNewItem={setNewItem}
         handleSubmit={handleSubmit}
       />
       <Content
-        items={items}
+        items={items.filter((item) =>
+          item.item.toLowerCase().includes(search.toLowerCase())
+        )}
         handleChecked={handleChecked}
         handleDelete={handleDelete}
       />
